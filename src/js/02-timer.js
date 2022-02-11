@@ -40,7 +40,7 @@ function convertMs(ms) {
 }
 const refs = {
   input: document.querySelector('#datetime-picker'),
-  startBtn: document.querySelector('[data-start'),
+  startBtn: document.querySelector('[data-start]'),
   daysSpan: document.querySelector('[data-days]'),
   hoursSpan: document.querySelector('[data-hours]'),
   minutesSpan: document.querySelector('[data-minutes]'),
