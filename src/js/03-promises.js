@@ -10,16 +10,14 @@ function submitHandler(e) {
   } = e.currentTarget;
   const amountOfIterations = Number(amount.value);
   let currentDelay;
-  for (let i = 0; i < amountOfIterations; i += 1) {
-    if (i === 0) {
+  for (let i = 1; i <= amountOfIterations; i += 1) {
+    if (i === 1) {
       currentDelay = Number(delay.value);
     } else {
       currentDelay += Number(step.value);
     }
 
-    const position = i + 1;
-
-    createPromise(position, currentDelay)
+    createPromise(i, currentDelay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
