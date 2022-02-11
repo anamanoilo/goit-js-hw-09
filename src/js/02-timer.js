@@ -47,13 +47,18 @@ const refs = {
   secondsSpan: document.querySelector('[data-seconds]'),
 };
 
+let timerId = null;
+
 function startTimer() {
   refs.startBtn.disabled = true;
-  setInterval(() => {
-    const currentTime = Date.now();
-    const targetDate = new Date(refs.input.value);
-    const delta = targetDate - currentTime;
-    const remaining = convertMs(delta);
+  const currentTime = Date.now();
+  const targetDate = new Date(refs.input.value);
+  const delta = targetDate - currentTime;
+  const remaining = convertMs(delta);
+  if (delta <= 0) {
+    clearInterval(timerId);
+  }
+  timerId = setInterval(() => {
     const addLeadingZero = value => String(value).padStart(2, 0);
     refs.daysSpan.textContent = addLeadingZero(remaining.days);
     refs.hoursSpan.textContent = addLeadingZero(remaining.hours);
