@@ -19,7 +19,7 @@ function submitHandler(e) {
 
     createPromise(i, currentDelay)
       .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} 34›in ${delay}ms`);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
