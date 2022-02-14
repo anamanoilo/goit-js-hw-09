@@ -48,24 +48,27 @@ const refs = {
 };
 
 let timerId = null;
+const addLeadingZero = value => String(value).padStart(2, 0);
 
-function startTimer() {
-  refs.startBtn.disabled = true;
+function renderTimer() {
   const currentTime = Date.now();
   const targetDate = new Date(refs.input.value);
   const delta = targetDate - currentTime;
-  const remaining = convertMs(delta);
+  const { days, hours, minutes, seconds } = convertMs(delta);
   if (delta <= 0) {
     clearInterval(timerId);
   }
-  timerId = setInterval(() => {
-    const addLeadingZero = value => String(value).padStart(2, 0);
-    refs.daysSpan.textContent = addLeadingZero(remaining.days);
-    refs.hoursSpan.textContent = addLeadingZero(remaining.hours);
-    refs.minutesSpan.textContent = addLeadingZero(remaining.minutes);
-    refs.secondsSpan.textContent = addLeadingZero(remaining.seconds);
-  }, 1000);
+  refs.daysSpan.textContent = addLeadingZero(days);
+  refs.hoursSpan.textContent = addLeadingZero(hours);
+  refs.minutesSpan.textContent = addLeadingZero(minutes);
+  refs.secondsSpan.textContent = addLeadingZero(seconds);
 }
+
+function startTimer() {
+  refs.startBtn.disabled = true;
+  timerId = setInterval(() => renderTimer(), 1000);
+}
+
 refs.startBtn.disabled = true;
 
 refs.startBtn.addEventListener('click', startTimer);
