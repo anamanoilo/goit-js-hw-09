@@ -47,26 +47,22 @@ const refs = {
   secondsSpan: document.querySelector('[data-seconds]'),
 };
 
-let timerId = null;
 const addLeadingZero = value => String(value).padStart(2, 0);
 
-function renderTimer() {
-  const currentTime = Date.now();
+function startTimer() {
+  refs.startBtn.disabled = true;
   const targetDate = new Date(refs.input.value);
+  setInterval(() => renderTimer(targetDate), 1000);
+}
+
+function renderTimer(targetDate) {
+  const currentTime = Date.now();
   const delta = targetDate - currentTime;
   const { days, hours, minutes, seconds } = convertMs(delta);
-  if (delta <= 0) {
-    clearInterval(timerId);
-  }
   refs.daysSpan.textContent = addLeadingZero(days);
   refs.hoursSpan.textContent = addLeadingZero(hours);
   refs.minutesSpan.textContent = addLeadingZero(minutes);
   refs.secondsSpan.textContent = addLeadingZero(seconds);
-}
-
-function startTimer() {
-  refs.startBtn.disabled = true;
-  timerId = setInterval(() => renderTimer(), 1000);
 }
 
 refs.startBtn.disabled = true;
